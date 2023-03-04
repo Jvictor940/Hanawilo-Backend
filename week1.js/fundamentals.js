@@ -288,57 +288,6 @@ map1.delete('name')
 /* The async function declaration declares an async function where the await keyword is permitted within the function body. The async and await keywords enable asynchronous, promise-based behavior to be written in a cleaner style, avoiding the need to explicitly configure promise chains. Await expressions make promise-returning functions behave as though they're synchronous by suspending execution until the returned promise is fulfilled or rejected. The resolved value of the promise is treated as the return value of the await expression. */
 
 /*
-Problem #15: Create two async functions:  
-- fetchRickAndMorty 
-o Using this api: https://rickandmortyapi.com/api/character 
-o Use a try/catch block 
-o Your catch block should: console.log(error.message) 
-o Fetch this api, and the function should return a payload of a ARRAY of the Characters’ name 
-such as shown below:  
-§ [“Rick Sanchez”, “Morty Smith”, “Tom Jones”, .... ] 
-o Hint: What array methods can you use to get the result above?? 
-- fetchMultipleAPIs 
-o Using these apis: 
-§ API 1: https://rickandmortyapi.com/api/character/2  
-§ API 2: https://randomuser.me/api/?results=1  
-o Use a try/catch block 
-o Your catch block should: console.log(error.message) 
-o Using a Promise.all() method, fetch both of these api’s concurrently, and the function should 
-return a payload of the Names from each payload such as shown below:  
-§ [“Morty Smith”, “Tony Kim”]  
-§ The first value “Morty Smith” should be coming from API 1.  
-§ The second value “Tony Kim” should be coming from API 2. Keep in mind, this second 
-API will have a new random user each time you call it! 
-*/
-
-/*
-Problem #16: OOP 
-In this task create a Shape class. It has three properties: name, sides, and sideLength. This class only models 
-shapes for which all sides are the same length, like a square or an equilateral triangle. 
-We'd like you to: 
-• Add a constructor to this class. The constructor takes arguments for the name, sides, 
-and sideLength properties, and initializes them. 
-• Add a new method calcPerimeter() method to the class, which calculates its perimeter (the length of 
-the shape's outer edge) and logs the result to the console. 
-• Create a new instance of the Shape class called square. Give it a name of square, 4 sides, and 
-a sideLength of 5. 
-• Call your calcPerimeter() method on the instance, to see whether it logs the calculation result to the 
-browser's console as expected. 
-• Create a new instance of Shape called triangle, with a name of triangle, 3 sides and a sideLength of 3. 
-• Call triangle.calcPerimeter() to check that it works OK. 
-*/
-
-/*
-Problem #17: OOP (Part 2) 
-Next we'd like you to create a Square class that inherits from Shape, and adds a calcArea() method that 
-calculates the square's area. Also set up the constructor so that the name property of Square object instances 
-is automatically set to square, and the sides property is automatically set to 4. When invoking the constructor, 
-you should therefore just need to provide the sideLength property. 
-Create an instance of the Square class called square with appropriate property values, and call 
-its calcPerimeter() and calcArea() methods to show that it works OK. 
-*/
-
-/*
 Problem #18: Using Git, please push this code up to your GitHub repo following the directions:  
  
 1. Initialize your project:   git init 

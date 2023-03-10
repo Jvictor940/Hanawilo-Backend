@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const dotenv = require('dotenv')
+const category = require('./routes/category');
 
 dotenv.config({ path: './config/config.env' });
 
@@ -8,6 +9,8 @@ const app = express();
 
 // parse through application/json
 app.use(bodyParser.json());
+
+app.use('/category', category)
 
 const PORT = process.env.PORT || 5001
 

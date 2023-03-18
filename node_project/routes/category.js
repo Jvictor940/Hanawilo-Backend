@@ -3,14 +3,21 @@ const router = express.Router();
 const {
     getCategories, 
     createCategory, 
+    deleteCategories,
+    getCategory,
     putCategory, 
-    deleteCategories
+    deleteCategory
 } = require('../controllers/categoryController')
 
 router.route('/')
 .get(getCategories)
 .post(createCategory)
-.put(putCategory)
 .delete(deleteCategories)
+
+router.route('/:categoryId')
+.get(getCategory)
+.put(putCategory)
+.delete(deleteCategory)
+
 
 module.exports = router; 

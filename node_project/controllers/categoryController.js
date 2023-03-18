@@ -1,3 +1,4 @@
+// Root Methods 
 //  For '/category' endpoints
 
 const getCategories = (req, res, next) => {
@@ -15,12 +16,6 @@ const createCategory = (req, res, next) => {
     ${req.body.categoryName} and gender ${req.body.gender}` })
 }
 
-const putCategory = (req, res, next) => {
-    res
-    .status(200)
-    .setHeader('Content-Type', 'application/json')
-    .json({ message: "You hit me! Show me all the categories!" })
-}
 const deleteCategories = (req, res, next) => {
     res
     .status(200)
@@ -28,9 +23,34 @@ const deleteCategories = (req, res, next) => {
     .json({ message: "Deleting the categories" })
 }
 
+//Param Methods 
+// For 'category/:categoryId'
+const getCategory = (req, res, next) => {
+    res 
+    .status(200)
+    .setHeader('Content-Type', 'application/json')
+    .json({ message: `Show me the category with categoryId of: ${req.params.categoryId}`})
+}
+
+const putCategory = (req, res, next) => {
+    res
+    .status(200)
+    .setHeader('Content-Type', 'application/json')
+    .json({ message: `Updated the category with categoryId of: ${req.params.categoryId}` })
+}
+
+const deleteCategory = (req, res, next) => {
+    res
+    .status(200)
+    .setHeader('Content-Type', 'application/json')
+    .json({ message: `Deleted the category with categoryId of: ${req.params.categoryId}`})
+}
+
 module.exports = {
     getCategories,
     createCategory, 
+    deleteCategories,
+    getCategory,
     putCategory, 
-    deleteCategories
+    deleteCategory
 }

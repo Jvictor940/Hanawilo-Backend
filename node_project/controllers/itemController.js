@@ -22,8 +22,33 @@ const deleteItems = (req, res, next) => {
     .json({ message: "Deleting the items" })
 }
 
+//params methods
+const getItem = (req, res, next) => {
+    res 
+    .status(200)
+    .setHeader('Content-Type', 'application/json')
+    .json({ message: `Show me the item with itemId of: ${req.params.itemId}`})
+}
+
+const putItem = (req, res, next) => {
+    res 
+    .status(200)
+    .setHeader('Content-Type', 'application/json')
+    .json({ message: `Updated the item with itemId of: ${req.params.itemId}`})
+}
+
+const deleteItem = (req, res, next) => {
+    res 
+    .status(200)
+    .setHeader('Content-Type', 'application/json')
+    .json({ message: `Deleted the item with itemId of: ${req.params.itemId}`})
+}
+
 module.exports = {
     getItems,
     postItem, 
-    deleteItems
+    deleteItems,
+    getItem,
+    putItem,
+    deleteItem
 }

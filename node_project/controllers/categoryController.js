@@ -2,6 +2,11 @@
 //  For '/category' endpoints
 
 const getCategories = (req, res, next) => {
+    // query parameter
+    if (Object.keys(req.query).length){
+        const category = req.query.category //pagination
+        console.log(`Searching for category: ${category}`)
+    }
     res
     .status(200)
     .setHeader('Content-Type', 'application/json')

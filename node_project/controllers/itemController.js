@@ -1,6 +1,28 @@
 const express = require('express');
 
 const getItems = (req, res, next) => {
+    if (Object.keys(req.query).length){
+        const {
+            gender, 
+            price, 
+            isClearance,
+            colors, 
+            sizes
+        } = req.query
+
+        const filter = [];
+        if (gender) filter.push(gender)
+        if (price) filter.push(price)
+        if (isClearance) filter.push(isClearance)
+        if (colors) filter.push(colors)
+        if (sizes) filter.push(sizes)
+
+        for (const query of filter){
+            console.log(`Searching item by ${query}`)
+        }
+    }
+
+
     res
     .status(200)
     .setHeader('Content-Type', 'application/json')

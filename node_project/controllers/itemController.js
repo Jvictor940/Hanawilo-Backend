@@ -1,24 +1,28 @@
 const Item = require('../models/Item')
 
 const getItems = async (req, res, next) => {
+    const filter = {};
+    const options = {};
     if (Object.keys(req.query).length){
         const {
             gender, 
             price, 
             isClearance,
             colors, 
-            sizes
+            sizes,
+            sortByPrice,
+            limit
         } = req.query
 
-        const filter = [];
-        if (gender) filter.push(gender)
-        if (price) filter.push(price)
-        if (isClearance) filter.push(isClearance)
-        if (colors) filter.push(colors)
-        if (sizes) filter.push(sizes)
+        if (gender) filter.gender = true
+        if (price) filter.price = true
+        if (isClearance) filter.isClearance = true
+        if (colors) filter.colors = true
+        if (sizes) filter.sizes = true
 
-        for (const query of filter){
-            console.log(`Searching item by ${query}`)
+        if (limit) options.limit = limit
+        if (sortByPrice) options.sort = {
+            price: sortByPrice
         }
     }
 
@@ -94,11 +98,62 @@ const deleteItem = async (req, res, next) => {
     }
 }
 
+// For '/:itemId/ratings' endpoint
+const getItemRatings = async (req, res, next) => {
+    try {
+        const result = await Item.findById(req.params.itemId)
+
+        res 
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(result.ratings)
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+const postItemRating = async (req, res, next) => {
+    try {
+        const result = await Item.findById(req.params.itemId)
+        result.ratings.push(req.body)
+
+        // saves new rating to the database
+        await result.save()
+
+        res 
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(result.ratings)
+    } catch (err) {
+        next(err)
+    }
+}
+
+const deleteItemRatings = async (req, res, next) => {
+    try {
+        const result = await Item.findById(req.params.itemId)
+        
+        result.ratings = [];
+
+        await result.save()
+        res 
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json({message: `Deleted all the ratings for item id of ${req.params.itemId}`})
+    } catch (err) {
+        next(err)
+    }
+}
+
 module.exports = {
     getItems,
     postItem, 
     deleteItems,
     getItem,
     putItem,
-    deleteItem
+    deleteItem,
+    getItemRatings,
+    postItemRating,
+    deleteItemRatings
 }

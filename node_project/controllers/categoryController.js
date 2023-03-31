@@ -1,16 +1,31 @@
 const Category = require('../models/Category');
+const { options } = require('../routes/user');
 // Root Methods 
 //  For '/category' endpoints
 
 const getCategories = async (req, res, next) => {
     // query parameter
+    const filter = {};
+    const options = {};
     if (Object.keys(req.query).length){
-        const category = req.query.category //pagination
-        console.log(`Searching for category: ${category}`)
+        const {
+            sortByCategory,
+            categoryName, 
+            gender, 
+            limit
+        } = req.query //pagination
+        if(categoryName) filter.categoryName = true;
+        if(gender) filter.gender = true;
+
+        if (limit) options.limit = limit;
+        if (sortByCategory) options.sort = {
+            categoryName: sortByCategory
+        }
+        // console.log(filter, options)
     }
 
     try {
-        const categories = await Category.find()
+        const categories = await Category.find({}, filter, options)
 
         res
         .status(200)

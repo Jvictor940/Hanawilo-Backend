@@ -146,6 +146,68 @@ const deleteItemRatings = async (req, res, next) => {
     }
 }
 
+// For '/:itemId/ratings/:ratingId' endpoint
+const getItemRating = async (req, res, next) => {
+    try {
+        const item = await Item.findById(req.params.itemId)
+        let rating = item.ratings.find(rating => (req.params.ratingId).equals(rating._id))
+
+        if(!rating) rating = {message: `No rating found with id: ${req.params.ratingId}`}
+
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(rating)
+    } catch (err) {
+        next(err)
+    }
+}
+
+const updateItemRating = async (req, res, next) => {
+    try {
+        const item = await Item.findById(req.params.itemId)
+        let rating = item.ratings.find(rating => (req.params.ratingId).equals(rating._id))
+        if (rating) {
+            const ratingIndexPosition = item.ratings.indexOf(rating)
+            item.ratings.splice(ratingIndexPosition, 1 , req.body)
+            rating = req.body
+            await item.save();
+        } else {
+            rating = {message: `No rating found with id: ${req.params.ratingId}`}
+        }
+
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(rating)
+    } catch (err) {
+        next(err)
+    }
+}
+
+const deleteItemRating = async (req, res, next) => {
+    try {
+        const item = await Item.findById(req.params.itemId)
+        let rating = item.ratings.find(rating => (req.params.ratingId).equals(rating._id))
+
+        if (rating) {
+            const ratingIndexPosition = item.ratings.indexOf(rating)
+            item.ratings.splice(ratingIndexPosition, 1)
+            rating = { message: `Successfully deleted rating with id: ${req.params.ratingId}`}
+            await item.save();
+        } else {
+            rating = {message: `No rating found with id: ${req.params.ratingId}`}
+        }
+
+        res
+        .status(200)
+        .setHeader('Content-Type', 'application/json')
+        .json(rating)
+    } catch (err) {
+        next(err)
+    }
+}
+
 module.exports = {
     getItems,
     postItem, 
@@ -155,5 +217,8 @@ module.exports = {
     deleteItem,
     getItemRatings,
     postItemRating,
-    deleteItemRatings
+    deleteItemRatings, 
+    getItemRating,
+    updateItemRating, 
+    deleteItemRating
 }

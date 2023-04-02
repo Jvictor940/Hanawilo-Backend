@@ -9,7 +9,10 @@ const {
     deleteItem,
     getItemRatings,
     postItemRating,
-    deleteItemRatings
+    deleteItemRatings, 
+    getItemRating,
+    updateItemRating,
+    deleteItemRating
 } = require('../controllers/itemController')
 
 router.route('/')

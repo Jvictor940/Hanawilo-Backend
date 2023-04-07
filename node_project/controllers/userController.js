@@ -15,7 +15,7 @@ const getUsers = async (req, res, next) => {
         if(gender) filter.gender = true
 
         if (limit) options.limit = limit;
-        if (sortByUserName) options.sortByUserName = {
+        if (sortByUserName) options.sort = {
             user: sortByUserName
         }
     }
@@ -34,10 +34,7 @@ const getUsers = async (req, res, next) => {
 const postUser = async (req, res, next) => {
     try {
         const user = await User.create(req.body)
-        res
-        .status(201)
-        .setHeader('Content-Type', 'application/json')
-        .json()
+        sendTokenResponse(user, 201, res)
     } catch (err) {
         next(err)
     }
@@ -92,6 +89,19 @@ const deleteUser = async (req, res, next) => {
     }
 }
 
+const sendTokenResponse = (user, statuscode, res) => {
+    const token = user.getSignedJwtToken();
+
+    const options = {
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000), 
+        httpOnly: true
+    }
+    
+    res
+    .status(statuscode)
+    .cookie('token', token, options)
+    .json(token)
+}
 module.exports = {
     getUsers,
     postUser, 

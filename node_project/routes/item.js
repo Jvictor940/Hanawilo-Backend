@@ -15,28 +15,29 @@ const {
     deleteItemRating,
     postItemImage
 } = require('../controllers/itemController')
+const protectedRoute = require('../middlewares/auth')
 
 router.route('/')
 .get(getItems)
-.post(postItem)
-.delete(deleteItems)
+.post(protectedRoute, postItem)
+.delete(protectedRoute, deleteItems)
 
 router.route('/:itemId')
 .get(getItem)
-.put(putItem)
-.delete(deleteItem)
+.put(protectedRoute, putItem)
+.delete(protectedRoute, deleteItem)
 
 router.route('/:itemId/ratings')
 .get(getItemRatings)
-.post(postItemRating)
-.delete(deleteItemRatings)
+.post(protectedRoute, postItemRating)
+.delete(protectedRoute, deleteItemRatings)
 
 router.route('/:itemId/ratings/ratingId')
 .get(getItemRating)
-.post(updateItemRating)
-.delete(deleteItemRating)
+.post(protectedRoute, updateItemRating)
+.delete(protectedRoute, deleteItemRating)
 
 router.route('/:itemId/image')
-.post(postItemImage)
+.post(protectedRoute, postItemImage)
 
 module.exports = router; 

@@ -29,6 +29,10 @@ const UserSchema = new Schema ({
         required: [true, 'Ypur password is required'],
         validate: (password) => validator.isStrongPassword(password)
 
+    }, 
+    admin: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true 

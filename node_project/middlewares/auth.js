@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken')
 const protectedRoute = async(req, res, next) => {
     let token; 
 
-    if (req.headers.authoriation && req.headers.authorization.startsWith('Bearer')) {
-        token = req.headers.authoriation.split(' ')[1]
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization.split(' ')[1]
     }
     // console.log(req.headers)
     if (!token) throw new Error('Not authorized to access this route')
@@ -19,8 +19,6 @@ const protectedRoute = async(req, res, next) => {
     } catch (err) {
         throw new Error('Error processing the jwt token!')
     }
-
-    next()
 }
 
 module.exports = protectedRoute;

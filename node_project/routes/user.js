@@ -7,7 +7,11 @@ const {
     getUser,
     putUser,
     deleteUser, 
-    login
+    login, 
+    forgotPassword,
+    resetPassword,
+    updatePassword,
+    logout
 } = require('../controllers/userController')
 const adminValidator = require('../middlewares/utils/validators');
 const protectedRoute = require('../middlewares/auth')
@@ -19,6 +23,18 @@ router.route('/')
 
 router.route('/login')
 .post(login)
+
+router.route('/forgotPassword')
+.post(forgotPassword)
+
+router.route('/resetPassword')
+.post(resetPassword)
+
+router.route('/updatePassword')
+.post(protectedRoute, updatePassword)
+
+router.route('/logout')
+.post(protectedRoute, logout)
 
 router.route('/:userId')
 .get(protectedRoute, getUser)
